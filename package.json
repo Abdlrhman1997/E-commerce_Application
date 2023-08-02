@@ -1,0 +1,24 @@
+{
+  "name": "e-commerce_application",
+  "version": "1.0.0",
+  "description": "A backend project website that have the popular functionality you find in most e-commerce websites today.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abdlrhman1997/E-commerce_Application.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Abdlrhman1997/E-commerce_Application/issues"
+  },
+  "homepage": "https://github.com/Abdlrhman1997/E-commerce_Application#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
