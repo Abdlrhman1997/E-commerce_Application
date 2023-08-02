@@ -6,7 +6,7 @@ const categorySchema = new Schema({
     unique: true,
     required: true,
     trim: true,
-    minlength: [1, "too short category name"],
+    minlength: [2, "too short category name"],
   },
   slug: {
     type: String,
