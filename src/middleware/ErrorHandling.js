@@ -7,7 +7,9 @@ export const catchError = (fn) => {
 export const globalErrorHandle = (err, req, res, next) => {
   const error = err.message;
   const statusCode = err.statusCode || 500;
-  res.status(statusCode).json({ error, stack: err.stack });
+  process.env.MODE == "development"
+    ? res.status(statusCode).json({ error, stack: err.stack })
+    : res.status(statusCode).json({ error });
 };
 
 export class AppError extends Error {
