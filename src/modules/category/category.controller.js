@@ -1,6 +1,6 @@
 import categoryModel from "../../../DB/models/category.model.js";
 import slugify from "slugify";
-import { AppError, catchError } from "../../utils/ErrorHandling.js";
+import { AppError, catchError } from "../../middleware/ErrorHandling.js";
 
 export const addCategory = catchError(async (req, res, next) => {
   req.body.slug = slugify(req.body.name);
