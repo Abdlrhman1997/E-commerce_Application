@@ -2,8 +2,13 @@ import { Router } from "express";
 const router = Router();
 import * as categoryController from "./category.controller.js";
 
-router.post("/addCategory", categoryController.addCategory);
-router.get("/getAllCategories", categoryController.getAllCategories);
-router.put("/updateCategory/:id", categoryController.updateCategory);
+router
+  .route("/")
+  .post(categoryController.addCategory)
+  .get(categoryController.getAllCategories);
+router
+  .route("/:id")
+  .put(categoryController.updateCategory)
+  .delete(categoryController.deleteCategory);
 
 export default router;
