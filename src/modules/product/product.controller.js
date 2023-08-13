@@ -11,8 +11,14 @@ export const addproduct = catchError(async (req, res, next) => {
 });
 
 export const getAllCategories = catchError(async (req, res, next) => {
-  const categories = await productModel.find();
-  res.status(201).json({ message: "success", categories });
+  const pageLimit = 5;
+  let pageNumber = req.query.page * 1 || 1;
+  if (pageNumber <= 0) {
+    pageNumber = 1;
+  }
+  const skip = (pageLimit - 1) * pageNumber;
+  const categories = await productModel.find().skip(skip).limit(pageLimit);
+  res.status(201).json({ page: pageNumber, message: "success", categories });
 });
 
 export const updateproduct = catchError(async (req, res, next) => {
