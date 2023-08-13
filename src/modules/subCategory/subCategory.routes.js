@@ -1,5 +1,5 @@
 import { Router } from "express";
-const subCategoryRouter = Router();
+const subCategoryRouter = Router({ mergeParams: true });
 import * as subCategoryController from "./subCategory.controller.js";
 
 subCategoryRouter
