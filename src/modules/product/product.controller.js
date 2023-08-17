@@ -11,13 +11,26 @@ export const addproduct = catchError(async (req, res, next) => {
 });
 
 export const getAllCategories = catchError(async (req, res, next) => {
+  //Paginagtion
   const pageLimit = 5;
   let pageNumber = req.query.page * 1 || 1;
   if (pageNumber <= 0) {
     pageNumber = 1;
   }
   const skip = (pageLimit - 1) * pageNumber;
-  const categories = await productModel.find().skip(skip).limit(pageLimit);
+
+  //==========================//
+  //Filteration
+  let filterObject = req.query;
+  let excludeedQuery = ["page", "sort", "fields", "keyword"];
+  excludeedQuery.forEach((e) => {
+    delete filterObject["e"];
+  });
+  console.log(filterObject);
+  const categories = await productModel
+    .find(filterObject)
+    .skip(skip)
+    .limit(pageLimit);
   res.status(201).json({ page: pageNumber, message: "success", categories });
 });
 
