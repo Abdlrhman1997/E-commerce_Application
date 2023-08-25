@@ -5,7 +5,7 @@ import * as productController from "./product.controller.js";
 router
   .route("/")
   .post(productController.addproduct)
-  .get(productController.getAllCategories);
+  .get(productController.getAllProducts);
 router
   .route("/:id")
   .put(productController.updateproduct)

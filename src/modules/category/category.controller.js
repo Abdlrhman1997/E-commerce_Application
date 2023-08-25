@@ -2,6 +2,7 @@ import categoryModel from "../../../DB/models/category.model.js";
 import slugify from "slugify";
 import { AppError, catchError } from "../../middleware/ErrorHandling.js";
 import { deleteOne } from "../handlers/factory.js";
+import ApiFeatures from "../../utils/ApiFeatures.js";
 export const addCategory = catchError(async (req, res, next) => {
   req.body.slug = slugify(req.body.name);
   const category = new categoryModel(req.body);
@@ -10,7 +11,13 @@ export const addCategory = catchError(async (req, res, next) => {
 });
 
 export const getAllCategories = catchError(async (req, res, next) => {
-  const categories = await categoryModel.find();
+  let apiFeatures = new ApiFeatures(categoryModel.find(), req.query)
+    .paginate()
+    .fields()
+    .filter()
+    .search()
+    .sort();
+  const categories = await apiFeatures.mongooseQuery;
   res.status(201).json({ message: "success", categories });
 });
 

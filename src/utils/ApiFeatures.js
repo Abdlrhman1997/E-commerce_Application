@@ -5,14 +5,12 @@ class ApiFeatures {
   }
 
   paginate() {
-    let pageLimit = 5;
-    let pageNumber = this.queryString.page * 1 || 1;
-    if (pageNumber <= 0) {
-      pageNumber = 1;
+    let page = this.queryString.page * 1 || 1;
+    if (this.queryString.page <= 0) {
+      page = 1;
     }
-    const skip = (pageLimit - 1) * pageNumber;
-    this.page = pageNumber;
-    this.mongooseQuery.skip(skip).limit(pageLimit);
+    let skip = (page - 1) * 5;
+    this.mongooseQuery.skip(skip).limit(5);
     return this;
   }
 
@@ -30,7 +28,7 @@ class ApiFeatures {
     );
 
     filterObject = JSON.parse(filterObject);
-    this.mongooseQuery.filter(filterObject);
+    this.mongooseQuery.find(filterObject);
     return this;
   }
 

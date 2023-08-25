@@ -11,11 +11,13 @@ export const addproduct = catchError(async (req, res, next) => {
   res.status(201).json({ message: "success", product });
 });
 
-export const getAllCategories = catchError(async (req, res, next) => {
-  const apiFeatures = new ApiFeatures(
-    productModel.find(),
-    req.query
-  ).paginate();
+export const getAllProducts = catchError(async (req, res, next) => {
+  const apiFeatures = new ApiFeatures(productModel.find(), req.query)
+    .paginate()
+    .fields()
+    .filter()
+    .search()
+    .sort();
 
   const result = await apiFeatures.mongooseQuery;
 

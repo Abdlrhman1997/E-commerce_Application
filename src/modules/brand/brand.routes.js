@@ -5,7 +5,7 @@ import * as brandController from "./brand.controller.js";
 router
   .route("/")
   .post(brandController.addbrand)
-  .get(brandController.getAllCategories);
+  .get(brandController.getAllBrands);
 router
   .route("/:id")
   .put(brandController.updatebrand)
