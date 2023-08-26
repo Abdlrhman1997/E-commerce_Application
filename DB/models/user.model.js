@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import { Schema, model } from "mongoose";
 
 const userSchema = new Schema(
@@ -21,6 +22,7 @@ const userSchema = new Schema(
     role: {
       type: String,
       enum: ["admin", "user"],
+      default: "user",
     },
     isActive: {
       type: Boolean,
@@ -37,6 +39,10 @@ const userSchema = new Schema(
   },
   { timestamps: true }
 );
+
+userSchema.pre("save", function () {
+  this.password = bcrypt.hashSync(this.password, 8);
+});
 
 const userModel = model("user", userSchema);
 

@@ -79,6 +79,11 @@ const productSchema = new Schema(
   { timestamps: true }
 );
 
+productSchema.post("init", function (doc) {
+  doc.imageCover = process.env.BASE_URL + "product/" + doc.imageCover;
+  doc.images = doc.images.map((ele) => process.env.BASE_URL + "product/" + ele);
+});
+
 const productModel = model("product", productSchema);
 
 export default productModel;
