@@ -22,7 +22,7 @@ const categorySchema = new Schema(
 );
 
 categorySchema.post("init", function (doc) {
-  doc.image = "http://localhost:3000/" + "category/" + doc.image;
+  doc.image = process.env.BASE_URL + "category/" + doc.image;
 });
 
 const categoryModel = model("category", categorySchema);
