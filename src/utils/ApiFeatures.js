@@ -10,7 +10,7 @@ class ApiFeatures {
       page = 1;
     }
     let skip = (page - 1) * 5;
-    this.mongooseQuery.skip(skip).limit(5);
+    this.mongooseQuery.skip(skip).limit(10);
     return this;
   }
 

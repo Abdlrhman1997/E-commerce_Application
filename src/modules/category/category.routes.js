@@ -8,11 +8,16 @@ import {
   deleteCategoryValidation,
   updateCategoryValidation,
 } from "./category.validation.js";
+import { uploadSingleFile } from "../../multer/multer.js";
 
 router.use("/:categoryId/subcategories", subCategoryRouter);
 router
   .route("/")
-  .post(validate(addCategoryValidation), categoryController.addCategory)
+  .post(
+    uploadSingleFile("image", "category"),
+    validate(addCategoryValidation),
+    categoryController.addCategory
+  )
   .get(categoryController.getAllCategories);
 router
   .route("/:id")
