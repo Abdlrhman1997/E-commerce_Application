@@ -5,6 +5,9 @@ import { deleteOne } from "../handlers/factory.js";
 import ApiFeatures from "../../utils/ApiFeatures.js";
 
 export const addproduct = catchError(async (req, res, next) => {
+  console.log(req.files);
+  req.body.imageCover = req.files.imageCover[0].filename;
+  req.body.images = req.files.images.map((img) => img.filename);
   req.body.slug = slugify(req.body.title);
   const product = new productModel(req.body);
   await product.save();
