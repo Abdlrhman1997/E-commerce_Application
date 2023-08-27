@@ -1,6 +1,7 @@
 import userModel from "../../../DB/models/user.model.js";
 import { AppError, catchError } from "../../middleware/ErrorHandling.js";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 export const signUp = catchError(async (req, res, next) => {
   const isUser = await userModel.findOne({ email: req.body.email });
   if (isUser) {
@@ -27,5 +28,12 @@ export const signIn = catchError(async (req, res, next) => {
     res.status(201).json({ message: "success", token });
   } else {
     return next(new AppError("incorrect email or password", 409));
+  }
+});
+
+export const protectedRoutes = catchError((req, res, next) => {
+  const { token } = req.headers;
+  if (!token) {
+    return next(new AppError("token not provided", 401));
   }
 });
