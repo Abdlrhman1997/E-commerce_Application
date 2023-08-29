@@ -76,8 +76,18 @@ const productSchema = new Schema(
       min: 0,
     },
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
+
+productSchema.virtual("reviews", {
+  ref: "review",
+  localField: "_id",
+  foreignField: "product",
+});
+
+productSchema.pre(/^find/, function () {
+  this.populate("reviews");
+});
 
 productSchema.post("init", function (doc) {
   doc.imageCover = process.env.BASE_URL + "product/" + doc.imageCover;

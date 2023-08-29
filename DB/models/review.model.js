@@ -25,6 +25,13 @@ const reviewSchema = new Schema(
   { timestamps: true }
 );
 
+// reviewSchema.pre(["find", "findOne"], function () {
+//   this.populate("user", "name -_id");
+// }); ==
+
+reviewSchema.pre(/^find/, function () {
+  this.populate("user", "name -_id");
+});
 const reviewModel = model("review", reviewSchema);
 
 export default reviewModel;
