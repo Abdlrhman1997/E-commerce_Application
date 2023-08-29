@@ -19,6 +19,8 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    passwordChangedAt: Date,
+
     role: {
       type: String,
       enum: ["admin", "user"],

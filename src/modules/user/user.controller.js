@@ -32,14 +32,10 @@ export const updateuser = catchError(async (req, res, next) => {
 
 export const changeUserPassword = catchError(async (req, res, next) => {
   const { id } = req.params;
-
-  const user = await userModel.findByIdAndUpdate(
-    id,
-    { password: req.body.password },
-    {
-      new: true,
-    }
-  );
+  req.body.passwordChangedAt = Date.now();
+  const user = await userModel.findByIdAndUpdate(id, req.body, {
+    new: true,
+  });
   !user && next(new AppError("user doesn't exist", 404));
   user && res.status(200).json({ message: `success`, user });
 });

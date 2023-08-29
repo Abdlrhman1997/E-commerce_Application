@@ -31,9 +31,27 @@ export const signIn = catchError(async (req, res, next) => {
   }
 });
 
-export const protectedRoutes = catchError((req, res, next) => {
+export const protectedRoutes = catchError(async (req, res, next) => {
   const { token } = req.headers;
   if (!token) {
     return next(new AppError("token not provided", 401));
   }
+
+  const decoded = await jwt.verify(token, "sasadanceonmsasa");
+
+  const user = await userModel.findById(decoded.id);
+  if (!user) {
+    return next(new AppError("user has been deleted", 401));
+  }
+
+  if (user.passwordChangedAt) {
+    const changePasswordDate = parseInt(
+      user.passwordChangedAt.getTime() / 1000
+    );
+    if (changePasswordDate > decoded.iat)
+      return next(new AppError("invalid token", 401));
+  }
+
+  req.user = user;
+  next();
 });
