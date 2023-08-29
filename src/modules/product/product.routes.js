@@ -2,7 +2,7 @@ import { Router } from "express";
 const router = Router();
 import * as productController from "./product.controller.js";
 import { uploadMixedFiles } from "../../multer/multer.js";
-import { protectedRoutes } from "../auth/auth.controller.js";
+import { allowedTo, protectedRoutes } from "../auth/auth.controller.js";
 
 const arrayofFields = [
   { name: "imageCover", maxCount: 1 },
@@ -12,6 +12,7 @@ router
   .route("/")
   .post(
     protectedRoutes,
+    allowedTo("admin"),
     uploadMixedFiles(arrayofFields, "product"),
     productController.addproduct
   )
