@@ -40,3 +40,19 @@ export const addProductToCart = catchError(async (req, res, next) => {
   await isCart.save();
   res.status(201).json({ message: "add to cart", cart: isCart });
 });
+
+export const removeProductFromCart = catchError(async (req, res, next) => {
+  const cart = await cartModel.findOneAndUpdate(
+    { user: req.user._id },
+    { $pull: { cartItems: { _id: req.params.id } } },
+    {
+      new: true,
+    }
+  );
+  calcTotalPrice(cart);
+  !cart &&
+    next(new AppError("cart doesn't exist or you are not authorized", 404));
+  cart && res.status(200).json({ message: `success`, cart });
+});
+
+export const applyCoupon = catchError(async (req, res, next) => {});

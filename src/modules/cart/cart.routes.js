@@ -7,13 +7,13 @@ router
   .route("/")
   .post(protectedRoutes, allowedTo("user"), cartController.addProductToCart);
 // .get(cartController.getAllcarts);
-// router
-//   .route("/:id")
+router
+  .route("/:id")
+  .patch(
+    protectedRoutes,
+    allowedTo("admin", "user"),
+    cartController.removeProductFromCart
+  );
 //   .put(protectedRoutes, allowedTo("user"), cartController.updatecart)
-//   .delete(
-//     protectedRoutes,
-//     allowedTo("admin", "user"),
-//     cartController.deletecart
-//   );
 
 export default router;
