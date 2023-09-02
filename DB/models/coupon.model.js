@@ -8,7 +8,7 @@ const couponSchema = new Schema(
       trim: true,
     },
     expires: {
-      type: Date,
+      type: String,
       required: true,
     },
     discount: {

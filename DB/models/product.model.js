@@ -90,8 +90,12 @@ productSchema.pre(/^find/, function () {
 });
 
 productSchema.post("init", function (doc) {
-  doc.imageCover = process.env.BASE_URL + "product/" + doc.imageCover;
-  doc.images = doc.images.map((ele) => process.env.BASE_URL + "product/" + ele);
+  if (doc.imageCover) {
+    doc.imageCover = process.env.BASE_URL + "product/" + doc.imageCover;
+    doc.images = doc.images.map(
+      (ele) => process.env.BASE_URL + "product/" + ele
+    );
+  }
 });
 
 const productModel = model("product", productSchema);
