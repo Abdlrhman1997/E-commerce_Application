@@ -14,4 +14,6 @@ app.use(morgan("dev"));
 app.use(express.static("uploads"));
 dbConnection();
 bootstrap(app);
-app.listen(port, () => console.log(`running on port ${port}`));
+app.listen(process.env.PORT || port, () =>
+  console.log(`running on port ${port}`)
+);
