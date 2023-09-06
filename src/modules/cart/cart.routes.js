@@ -5,7 +5,16 @@ import { allowedTo, protectedRoutes } from "../auth/auth.controller.js";
 
 router
   .route("/")
-  .post(protectedRoutes, allowedTo("user"), cartController.addProductToCart);
+  .post(protectedRoutes, allowedTo("user"), cartController.addProductToCart)
+  .get(protectedRoutes, allowedTo("user"), cartController.getLogedUserCart);
+
+router.post(
+  "/applyCoupon",
+  protectedRoutes,
+  allowedTo("user"),
+  cartController.applyCoupon
+);
+
 // .get(cartController.getAllcarts);
 router
   .route("/:id")
@@ -13,7 +22,11 @@ router
     protectedRoutes,
     allowedTo("admin", "user"),
     cartController.removeProductFromCart
+  )
+  .put(
+    protectedRoutes,
+    allowedTo("user"),
+    cartController.updateCartProductQuantity
   );
-//   .put(protectedRoutes, allowedTo("user"), cartController.updatecart)
 
 export default router;

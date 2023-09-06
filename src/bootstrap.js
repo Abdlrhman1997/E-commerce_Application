@@ -23,6 +23,7 @@ const bootstrap = (app) => {
   app.use("/address", addressRouter);
   app.use("/coupons", couponRouter);
   app.use("/cart", cartRouter);
+  app.use("/order", cartRouter);
 
   app.all("*", (req, res, next) => {
     next(new AppError("wrong end point", 404));
