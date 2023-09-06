@@ -3,12 +3,11 @@ const router = Router();
 import * as orderController from "./order.controller.js";
 import { allowedTo, protectedRoutes } from "../auth/auth.controller.js";
 
-// router
-//   .route("/")
-//   .post(protectedRoutes, allowedTo("user"), orderController.addProductToorder)
-//   .get(protectedRoutes, allowedTo("user"), orderController.getLogedUserorder);
+router
+  .route("/")
+  .get(protectedRoutes, allowedTo("user"), orderController.getUserOrder);
 
-// .get(orderController.getAllorders);
+router.get("/orders", orderController.getAllOrders);
 
 router
   .route("/:id")

@@ -9,6 +9,7 @@ import wishlistRouter from "./modules/wishlist/wishlist.routes.js";
 import addressRouter from "./modules/address/address.routes.js";
 import couponRouter from "./modules/coupon/coupon.routes.js";
 import cartRouter from "./modules/cart/cart.routes.js";
+import orderRouter from "./modules/order/order.routes.js";
 
 import { AppError, globalErrorHandle } from "./middleware/ErrorHandling.js";
 const bootstrap = (app) => {
@@ -23,7 +24,7 @@ const bootstrap = (app) => {
   app.use("/address", addressRouter);
   app.use("/coupons", couponRouter);
   app.use("/cart", cartRouter);
-  app.use("/order", cartRouter);
+  app.use("/order", orderRouter);
 
   app.all("*", (req, res, next) => {
     next(new AppError("wrong end point", 404));
