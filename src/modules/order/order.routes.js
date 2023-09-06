@@ -8,7 +8,12 @@ router
   .get(protectedRoutes, allowedTo("user"), orderController.getUserOrder);
 
 router.get("/orders", orderController.getAllOrders);
-
+router.post(
+  "/checkout/:id",
+  protectedRoutes,
+  allowedTo("user"),
+  orderController.createCheckoutSession
+);
 router
   .route("/:id")
   .post(
